@@ -1,4 +1,4 @@
-using Details.Controllers.Title;
+using Details.Title.Controllers;
 using Domains.UseCases.Title;
 using UnityEngine;
 using VContainer;

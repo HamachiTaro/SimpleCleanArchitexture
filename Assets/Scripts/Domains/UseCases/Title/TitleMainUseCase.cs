@@ -43,8 +43,7 @@ namespace Domains.UseCases.Title
 
             await _uiController.OnNextSceneAsync(cancellation);
 
-            //await SceneManager.LoadSceneAsync("").WithCancellation(cancellation);
-            Debug.Log("シーン遷移");
+            await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").WithCancellation(cancellation);
 
             // todo loadingを表示する
         }

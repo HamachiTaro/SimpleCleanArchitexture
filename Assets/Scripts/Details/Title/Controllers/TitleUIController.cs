@@ -6,7 +6,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Details.Controllers.Title
+namespace Details.Title.Controllers
 {
     public class TitleUIController : MonoBehaviour, ITitleUIController
     {

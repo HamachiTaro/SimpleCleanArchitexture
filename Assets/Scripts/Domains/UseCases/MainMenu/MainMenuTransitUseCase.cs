@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Domains.Interfaces.Common.Presenters;
 using Domains.Interfaces.MainMenu.Controller;
 using UniRx;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ namespace Domains.UseCases.MainMenu
         private const string SettingScene = "Scenes/SettingScene";
         private const string InGameScene = "Scenes/InGameScene";
         
+        private readonly ICommonLoadingPresenter _commonLoadingPresenter;
         private readonly IMainMenuUIController _uiController;
 
         private readonly CompositeDisposable _disposable;
@@ -24,8 +26,10 @@ namespace Domains.UseCases.MainMenu
 
         [Inject]
         public MainMenuTransitUseCase(
+            ICommonLoadingPresenter commonLoadingPresenter,
             IMainMenuUIController uiController)
         {
+            _commonLoadingPresenter = commonLoadingPresenter;
             _uiController = uiController;
             
             _disposable = new CompositeDisposable();
@@ -54,7 +58,7 @@ namespace Domains.UseCases.MainMenu
 
         private async UniTaskVoid TransitAsync(string sceneName, CancellationToken token)
         {
-            // todo ローディング表示
+            await _commonLoadingPresenter.ShowAsync(token);
 
             await SceneManager.LoadSceneAsync(sceneName).WithCancellation(token);
         }

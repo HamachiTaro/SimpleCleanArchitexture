@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Domains.Interfaces.Common.Controllers;
+using Domains.Interfaces.Common.Presenters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
@@ -11,11 +12,14 @@ namespace Domains.UseCases.Common
     public class CommonBackMainMenuUseCase : IInitializable, IAsyncStartable, IDisposable
     {
         private readonly ICommonBackController _backController;
+        private readonly ICommonLoadingPresenter _commonLoadingPresenter;
 
         public CommonBackMainMenuUseCase(
-            ICommonBackController backController)
+            ICommonBackController backController,
+            ICommonLoadingPresenter commonLoadingPresenter)
         {
             _backController = backController;
+            _commonLoadingPresenter = commonLoadingPresenter;
         }
 
         public void Dispose()
@@ -31,8 +35,8 @@ namespace Domains.UseCases.Common
         public async UniTask StartAsync(CancellationToken cancellation)
         {
             await _backController.BackAsync(cancellation);
-
-            // todo ローディング表示
+            
+            await _commonLoadingPresenter.ShowAsync(cancellation);
             
             await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").WithCancellation(cancellation);
         }

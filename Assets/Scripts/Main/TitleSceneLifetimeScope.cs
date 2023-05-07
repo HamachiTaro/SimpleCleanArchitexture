@@ -1,3 +1,4 @@
+using Details.Common.Presenters;
 using Details.Title.Controllers;
 using Domains.UseCases.Title;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Main
         {
             // アタッチされたコンポーネントからインターフェースを登録する
             builder.RegisterComponent(uiController).AsImplementedInterfaces();
+            // ヒエラルキーにインスタンスがある場合の登録。
+            builder.RegisterComponentInHierarchy<CommonLoadingPresenter>().AsImplementedInterfaces();
 
             // エントリーポイント
             builder.RegisterEntryPoint<TitleMainUseCase>();

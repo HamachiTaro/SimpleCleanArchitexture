@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Domains.Interfaces.Common.Presenters;
 using UniRx;
 using VContainer;
 using VContainer.Unity;
@@ -16,14 +17,17 @@ namespace Domains.UseCases.Title
     /// </summary>
     public class TitleMainUseCase : IInitializable, IAsyncStartable, IDisposable
     {
+        private readonly ICommonLoadingPresenter _commonLoadingPresenter;
         private readonly ITitleUIController _uiController;
 
         private readonly CompositeDisposable _disposable = new CompositeDisposable();
 
         [Inject]
         public TitleMainUseCase(
+            ICommonLoadingPresenter commonLoadingPresenter,
             ITitleUIController uiController)
         {
+            _commonLoadingPresenter = commonLoadingPresenter;
             _uiController = uiController;
         }
 
@@ -39,13 +43,13 @@ namespace Domains.UseCases.Title
 
         public async UniTask StartAsync(CancellationToken cancellation)
         {
-            // todo loadingを消去する
+            await _commonLoadingPresenter.HideAsync(cancellation);
 
             await _uiController.OnNextSceneAsync(cancellation);
 
-            await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").WithCancellation(cancellation);
+            await _commonLoadingPresenter.ShowAsync(cancellation);
 
-            // todo loadingを表示する
+            await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").WithCancellation(cancellation);
         }
     }
 }

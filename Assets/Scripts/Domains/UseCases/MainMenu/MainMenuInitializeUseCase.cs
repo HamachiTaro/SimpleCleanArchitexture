@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Domains.Interfaces.Common.Presenters;
 using Domains.Interfaces.MainMenu.DataProvider;
 using Domains.Interfaces.MainMenu.Presenter;
 using UnityEngine;
@@ -15,14 +16,17 @@ namespace Domains.UseCases.MainMenu
     /// </summary>
     public class MainMenuInitializeUseCase : IInitializable, IAsyncStartable, IDisposable
     {
+        private readonly ICommonLoadingPresenter _commonLoadingPresenter;
         private readonly IUserDataProvider _userDataProvider;
         private readonly IMainMenuUIPresenter _mainMenuUIPresenter;
 
         [Inject]
         public MainMenuInitializeUseCase(
+            ICommonLoadingPresenter commonLoadingPresenter,
             IUserDataProvider userDataProvider,
             IMainMenuUIPresenter mainMenuUIPresenter)
         {
+            _commonLoadingPresenter = commonLoadingPresenter;
             _userDataProvider = userDataProvider;
             _mainMenuUIPresenter = mainMenuUIPresenter;
         }
@@ -30,6 +34,7 @@ namespace Domains.UseCases.MainMenu
         public void Initialize()
         {
             Debug.Log("Initialize");
+            _commonLoadingPresenter.Show();
         }
 
         public void Dispose()
@@ -42,7 +47,7 @@ namespace Domains.UseCases.MainMenu
 
             _mainMenuUIPresenter.DisplayUseName(userData.name);
 
-            // todo loadingを非表示
+            await _commonLoadingPresenter.HideAsync(cancellation);
         }
     }
 }

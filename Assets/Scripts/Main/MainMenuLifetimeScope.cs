@@ -1,3 +1,4 @@
+using Details.Common.Presenters;
 using Details.MainMenu.Controllers;
 using Details.MainMenu.DataProviders;
 using Details.MainMenu.Presenters;
@@ -19,6 +20,7 @@ namespace Main
             // ヒエラルキーにインスタンスがある場合の登録。
             builder.RegisterComponentInHierarchy<MainMenuUIPresenter>().AsImplementedInterfaces();
             builder.RegisterComponentInHierarchy<MainMenuUIController>().AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<CommonLoadingPresenter>().AsImplementedInterfaces();
             
             // エントリーポイント
             builder.RegisterEntryPoint<MainMenuInitializeUseCase>();

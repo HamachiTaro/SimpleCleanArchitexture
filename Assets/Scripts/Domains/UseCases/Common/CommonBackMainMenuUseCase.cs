@@ -6,13 +6,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
 
-namespace Domains.UseCases.Setting
+namespace Domains.UseCases.Common
 {
-    public class SettingBackUseCase : IInitializable, IAsyncStartable, IDisposable
+    public class CommonBackMainMenuUseCase : IInitializable, IAsyncStartable, IDisposable
     {
         private readonly ICommonBackController _backController;
 
-        public SettingBackUseCase(
+        public CommonBackMainMenuUseCase(
             ICommonBackController backController)
         {
             _backController = backController;

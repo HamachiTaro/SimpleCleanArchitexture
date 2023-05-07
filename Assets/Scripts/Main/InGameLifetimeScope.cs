@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Main
 {
-    public class SettingLifetimeScope : LifetimeScope
+    public class InGameLifetimeScope : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
         {

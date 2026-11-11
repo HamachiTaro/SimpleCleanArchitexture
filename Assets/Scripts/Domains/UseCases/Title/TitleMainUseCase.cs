@@ -49,7 +49,8 @@ namespace Domains.UseCases.Title
 
             await _commonLoadingPresenter.ShowAsync(cancellation);
 
-            await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").WithCancellation(cancellation);
+            // シーン遷移でこのスコープが破棄されトークンがキャンセルされるため、トークンは渡さない。
+            await SceneManager.LoadSceneAsync("Scenes/MainMenuScene").ToUniTask();
         }
     }
 }

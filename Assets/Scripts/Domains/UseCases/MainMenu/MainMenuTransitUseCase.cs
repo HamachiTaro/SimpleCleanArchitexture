@@ -60,7 +60,8 @@ namespace Domains.UseCases.MainMenu
         {
             await _commonLoadingPresenter.ShowAsync(token);
 
-            await SceneManager.LoadSceneAsync(sceneName).WithCancellation(token);
+            // シーン遷移でこのスコープが破棄されトークンがキャンセルされるため、トークンは渡さない。
+            await SceneManager.LoadSceneAsync(sceneName).ToUniTask();
         }
     }
 }

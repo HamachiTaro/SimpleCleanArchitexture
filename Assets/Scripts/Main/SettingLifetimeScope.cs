@@ -6,9 +6,9 @@ using VContainer.Unity;
 
 namespace Main
 {
-    public class SettingLifetimeScope : LifetimeScope
+    public class SettingLifetimeScope : SceneLifetimeScope
     {
-        protected override void Configure(IContainerBuilder builder)
+        protected override void ConfigureScene(IContainerBuilder builder)
         {
             // ヒエラルキーにインスタンスがある場合の登録。
             builder.RegisterComponentInHierarchy<CommonBackController>().AsImplementedInterfaces();

@@ -7,11 +7,11 @@ using VContainer.Unity;
 
 namespace Main
 {
-    public class TitleSceneLifetimeScope : LifetimeScope
+    public class TitleSceneLifetimeScope : SceneLifetimeScope
     {
         [SerializeField] private TitleUIController uiController;
 
-        protected override void Configure(IContainerBuilder builder)
+        protected override void ConfigureScene(IContainerBuilder builder)
         {
             // アタッチされたコンポーネントからインターフェースを登録する
             builder.RegisterComponent(uiController).AsImplementedInterfaces();

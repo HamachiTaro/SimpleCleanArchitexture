@@ -9,10 +9,10 @@ using VContainer.Unity;
 
 namespace Main
 {
-    public class MainMenuLifetimeScope : LifetimeScope
+    public class MainMenuLifetimeScope : SceneLifetimeScope
     {
         
-        protected override void Configure(IContainerBuilder builder)
+        protected override void ConfigureScene(IContainerBuilder builder)
         {
             // ヒエラルキー上にインスタンスがない場合の登録。
             builder.Register<IUserDataProvider, UserDataDummyProvider>(Lifetime.Singleton);
